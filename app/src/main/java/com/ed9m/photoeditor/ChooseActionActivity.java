@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 public class ChooseActionActivity extends Activity {
 	private MainDrawView mImageView;
@@ -63,12 +62,12 @@ public class ChooseActionActivity extends Activity {
                 else{
                     setBackgroundV16Minus(mImageView, btm);
                 }
-                pbtApplyRect.setOnClickListener(new View.OnClickListener() {
+                /*pbtApplyRect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         pbtApplyRectClick();
                     }
-                });
+                });*/
             }
 
 		}
