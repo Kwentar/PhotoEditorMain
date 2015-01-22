@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="#3B3B3B">
     
     <com.ed9m.photoeditor.MainDrawView
         android:id="@+id/image_preview"
