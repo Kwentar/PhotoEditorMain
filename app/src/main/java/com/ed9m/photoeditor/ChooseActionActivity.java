@@ -7,84 +7,121 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ColorFilter;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 public class ChooseActionActivity extends Activity {
 	private MainDrawView mImageView;
     private Button pbtApplyRect;
+    private Bitmap sourceBtm;
+    private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(this) {
+        @Override
+        public void onManagerConnected(int status) {
+            switch (status) {
+                case LoaderCallbackInterface.SUCCESS:
+                {
+                    Log.i("OpenCV", "OpenCV loaded successfully");
+                    // Create and set View
+
+                } break;
+                default:
+                {
+                    super.onManagerConnected(status);
+                } break;
+            }
+        }
+    };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_chooseaction);
-		Intent intent = getIntent();
-		if (null != intent) {
-			String image_path = intent.getStringExtra("IMAGE_PATH");
-			mImageView = (MainDrawView) findViewById(R.id.image_preview);
-			Bitmap btm = decodeSampledBitmapFromFile(image_path, 2048, 2048);
-            Log.i("OPENING IMAGE", "size of image is " + btm.getWidth() +"x" + btm.getHeight());
-            ExifInterface ei = null;
-			try {
-				ei = new ExifInterface(image_path);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            switch(orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                	Log.i("OPENING IMAGE", "rotation is 90");
-                	btm = RotateBitmap(btm, 90);
-                    break;
-                case ExifInterface.ORIENTATION_TRANSPOSE:
-                	Log.i("OPENING IMAGE", "rotation is transopse");
-                	btm = RotateBitmap(btm, 270);
-                    break;
+        Log.i("OpenCV", "Trying to load OpenCV library");
+        if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_9, this, mOpenCVCallBack))
+        {
+            Log.e("OpenCV", "Cannot connect to OpenCV Manager");
+        }
+        else {
+            setContentView(R.layout.activity_chooseaction);
+            Intent intent = getIntent();
+            if (null != intent) {
+                String image_path = intent.getStringExtra("IMAGE_PATH");
+                mImageView = (MainDrawView) findViewById(R.id.image_preview);
+                pbtApplyRect = (Button) findViewById(R.id.pbtApplyRect);
+                sourceBtm = decodeSampledBitmapFromFile(image_path, 2048, 2048);
+                Log.i("OPENING IMAGE", "size of image is " + sourceBtm.getWidth() + "x" + sourceBtm.getHeight());
+                ExifInterface ei = null;
+                try {
+                    ei = new ExifInterface(image_path);
+                } catch (IOException e) {
 
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                	Log.i("OPENING IMAGE", "rotation is 180");
-                	btm = RotateBitmap(btm, 180);
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                	Log.i("OPENING IMAGE", "rotation is 270");
-                	btm = RotateBitmap(btm, 270);
-                    break;
-            }
-            if(btm != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 16){
-                    setBackgroundV16Plus(mImageView, btm);
+                    e.printStackTrace();
                 }
-                else{
-                    setBackgroundV16Minus(mImageView, btm);
-                }
-                /*pbtApplyRect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        pbtApplyRectClick();
-                    }
-                });*/
-            }
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        Log.i("OPENING IMAGE", "rotation is 90");
+                        sourceBtm = RotateBitmap(sourceBtm, 90);
+                        break;
+                    case ExifInterface.ORIENTATION_TRANSPOSE:
+                        Log.i("OPENING IMAGE", "rotation is transopse");
+                        sourceBtm = RotateBitmap(sourceBtm, 270);
+                        break;
 
-		}
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        Log.i("OPENING IMAGE", "rotation is 180");
+                        sourceBtm = RotateBitmap(sourceBtm, 180);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        Log.i("OPENING IMAGE", "rotation is 270");
+                        sourceBtm = RotateBitmap(sourceBtm, 270);
+                        break;
+                }
+                if (sourceBtm != null) {
+                    mImageView.setImageBitmap(sourceBtm);
+                    pbtApplyRect.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pbtApplyRectClick();
+                        }
+                    });
+                }
+
+            }
+        }
 	}
     public void pbtApplyRectClick() {
-
+        if(mImageView.roi.width == 0 || mImageView.roi.height == 0) {
+            Toast.makeText(getApplicationContext(),R.string.draw_rect,Toast.LENGTH_LONG).show();
+        }
+        else {
+            Mat bgModel = new Mat();
+            Mat fgModel = new Mat();
+            Mat sourceMat = new Mat();
+            Mat bg = new Mat();
+            Utils.bitmapToMat(sourceBtm,sourceMat);
+            Imgproc.cvtColor(sourceMat, sourceMat, Imgproc.COLOR_BGRA2BGR);
+            Imgproc.grabCut(sourceMat, bg, mImageView.roi, bgModel, fgModel, 1, Imgproc.GC_INIT_WITH_RECT);
+            bg = bg.mul(bg,10.);
+            Imgproc.cvtColor(bg, bg, Imgproc.COLOR_GRAY2BGRA);
+            Utils.matToBitmap(bg,sourceBtm);
+        }
     }
-    @TargetApi(16)
-    private void setBackgroundV16Plus(View view, Bitmap bitmap) {
-        view.setBackground(new BitmapDrawable(getResources(), bitmap));
 
-    }
 
-    @SuppressWarnings("deprecation")
-    private void setBackgroundV16Minus(View view, Bitmap bitmap) {
-        view.setBackgroundDrawable(new BitmapDrawable(bitmap));
-    }
     public static Bitmap RotateBitmap(Bitmap source, float angle)
     {
           Matrix matrix = new Matrix();
