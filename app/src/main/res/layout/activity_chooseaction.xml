@@ -3,14 +3,15 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="#3B3B3B">
+    android:gravity="center">
     
     <com.ed9m.photoeditor.MainDrawView
         android:id="@+id/image_preview"
-        android:layout_width="wrap_content"
-    	android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_gallery"
+
         />
     <Button
         android:layout_width="wrap_content"

@@ -6,4 +6,5 @@
     <string name="camera_desc">Take photo from camera</string>
     <string name="gallery_desc">Get image from gallery</string>
     <string name="apply">Apply</string>
+    <string name="draw_rect">Draw rect around object, please</string>
 </resources>
