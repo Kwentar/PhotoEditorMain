@@ -7,10 +7,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.media.ExifInterface;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -18,6 +23,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
@@ -26,12 +32,15 @@ import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-public class ChooseActionActivity extends Activity {
+public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 	private ImageView mImageView;
+    private SeekBar seekBar;
     private Bitmap sourceBtm;
+    private Bitmap resultBtm;
     private HorizontalScrollView colorFiltersScroll;
     private ArrayList<ImageButton> filterButtons;
     private ArrayList<Mat> lutMats;
@@ -42,7 +51,7 @@ public class ChooseActionActivity extends Activity {
                 case LoaderCallbackInterface.SUCCESS:
                 {
                     Log.i("OpenCV", "OpenCV loaded successfully");
-                    // Create and set View
+                    CreatePreviewColorFilters(sourceBtm);
 
                 } break;
                 default:
@@ -69,6 +78,8 @@ public class ChooseActionActivity extends Activity {
             if (null != intent) {
                 String image_path = intent.getStringExtra("IMAGE_PATH");
                 mImageView = (ImageView) findViewById(R.id.image_preview);
+                seekBar = (SeekBar)findViewById(R.id.seekBar);
+                seekBar.setOnSeekBarChangeListener(this);
                 colorFiltersScroll = (HorizontalScrollView)findViewById(R.id.color_filter_scroll);
                 Display display = getWindowManager().getDefaultDisplay();
                 Point size = new Point();
@@ -112,11 +123,29 @@ public class ChooseActionActivity extends Activity {
             }
         }
 	}
-    public void testClick(View view) {
-        CreatePreviewColorFilters(sourceBtm);
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress,
+                                  boolean fromUser) {
+        if(resultBtm != null)
+        {
+            Bitmap tmp = adjustOpacity(resultBtm, progress).copy(resultBtm.getConfig(),true);
+            mImageView.setImageBitmap(overlay(tmp,sourceBtm));
+        }
+    }
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
     public void CreatePreviewColorFilters(Bitmap btm) {
         int maxSize = 200;
+
         Field[] all_fields = R.drawable.class.getFields();
         ArrayList<Field> lut_fields = new ArrayList<Field>();
         Size goalSize = new Size();
@@ -127,7 +156,7 @@ public class ChooseActionActivity extends Activity {
             goalSize.height = 200;
             goalSize.width = btm.getWidth() * maxSize / btm.getHeight();
         }
-        Mat srcResize = new Mat((int)goalSize.height, (int)goalSize.width, CvType.CV_8UC4);
+        Mat srcResize = new Mat();
         Utils.bitmapToMat(btm, srcResize);
         Imgproc.cvtColor(srcResize, srcResize, Imgproc.COLOR_RGBA2BGR);
         Imgproc.resize(srcResize, srcResize, goalSize);
@@ -157,74 +186,92 @@ public class ChooseActionActivity extends Activity {
             //Imgproc.cvtColor(tMat, tMat, Imgproc.COLOR_BGR2RGBA);
             lutMats.add(tMat);
         }
-        Mat resMat = new Mat();
 
+        Mat srcRGBA = new Mat();
+        Imgproc.cvtColor(srcResize,srcRGBA,Imgproc.COLOR_BGR2RGBA);
+        Bitmap srcBtm = Bitmap.createBitmap(srcResize.width(), srcResize.height(), Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(srcRGBA, srcBtm);
+        //Mat resF = new Mat(srcResize.size(), CvType.CV_32FC3);
         for(Mat lut: lutMats) {
             ImageButton tmp = new ImageButton(this);
-            Core.LUT(srcResize, lut, resMat);
-            resMat = resMat.mul(srcResize);
-            Imgproc.cvtColor(resMat,resMat,Imgproc.COLOR_BGR2RGBA);
-            Bitmap resBtm = Bitmap.createBitmap(srcResize.width(), srcResize.height(), Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(resMat, resBtm);
-            tmp.setImageBitmap(resBtm);
+            tmp.setBackground(null);
+            tmp.setOnClickListener(getOnClickImageButton(tmp));
+            Bitmap resBtm = Lut(srcBtm, lut);
+            resBtm = adjustOpacity(resBtm,90);
+
+            tmp.setImageBitmap(overlay(resBtm,srcBtm));
             filterButtons.add(tmp);
         }
 
         LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
         for(ImageButton imageButton : filterButtons) {
             layout.addView(imageButton);
         }
 
-        //добавили кнопку в GridLayout, применив к ней параметры gridLayoutParam (кнопка появится в ячейке row;column)
-
-
         colorFiltersScroll.addView(layout);
 
     }
-    public void pbtApplyRectClick() {
+    View.OnClickListener getOnClickImageButton(final ImageButton button)  {
+        return new View.OnClickListener() {
+            public void onClick(View v) {
+                for(int i = 0; i < filterButtons.size(); i++) {
+                    if(filterButtons.get(i) == button) {
+                        resultBtm = Lut(sourceBtm, lutMats.get(i));
+                        Bitmap tmp = adjustOpacity(resultBtm,seekBar.getProgress());
+                        mImageView.setImageBitmap(overlay(tmp,sourceBtm));
+                    }
+                }
+            }
+        };
+    }
+    private Bitmap Lut(Bitmap src, Mat lut) {
+        Mat resMat = new Mat();
+        Mat srcMat = new Mat();
+        Utils.bitmapToMat(src, srcMat);
+        Imgproc.cvtColor(srcMat, srcMat, Imgproc.COLOR_RGBA2BGR);
+        Core.LUT(srcMat, lut, resMat);
+        Imgproc.cvtColor(resMat,resMat,Imgproc.COLOR_BGR2RGBA);
 
-        /*if(mImageView.roi.width == 0 || mImageView.roi.height == 0) {
-            Toast.makeText(getApplicationContext(),R.string.draw_rect,Toast.LENGTH_LONG).show();
+        Bitmap resBtm = Bitmap.createBitmap(srcMat.width(), srcMat.height(), Bitmap.Config.ARGB_8888);
+
+        Utils.matToBitmap(resMat, resBtm);
+        return resBtm;
+    }
+    private Bitmap overlay(Bitmap bmp1, Bitmap bmp2)
+    {
+        try
+        {
+            Bitmap bmOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(),  bmp1.getConfig());
+            Canvas canvas = new Canvas(bmOverlay);
+            Paint paint = new Paint();
+            canvas.drawBitmap(bmp1, 0, 0, paint);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+
+            canvas.drawBitmap(bmp2, 0, 0, paint);
+            return bmOverlay;
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
         }
-        else {
-            Mat bgModel = new Mat();
-            Mat fgModel = new Mat();
-            Mat sourceMat = new Mat();
-            Mat bg = new Mat();
-            int max_size = 256;
-            int w,h;
-            float w_coef, h_coef;
-            Utils.bitmapToMat(sourceBtm,sourceMat);
-            if(sourceMat.height() > sourceMat.width()) {
-                h = max_size;
-                w = max_size * sourceMat.width() / sourceMat.height();
-            }
-            else {
-                w = max_size;
-                h = max_size * sourceMat.height() / sourceMat.width();
-
-            }
-            w_coef = (float)sourceMat.width() / w;
-            h_coef = (float)sourceMat.height() / h;
-            mImageView.roi.x = (int)((float)mImageView.roi.x / w_coef);
-            mImageView.roi.width = (int)((float)mImageView.roi.width / w_coef);
-            mImageView.roi.y = (int)((float)mImageView.roi.y / h_coef);
-            mImageView.roi.height = (int)((float)mImageView.roi.height / h_coef);
-            if (mImageView.roi.height + mImageView.roi.y > h) {
-                mImageView.roi.height = h - mImageView.roi.y - 1;
-            }
-            if (mImageView.roi.width + mImageView.roi.x > w) {
-                mImageView.roi.width = w - mImageView.roi.x - 1;
-            }
-            Imgproc.resize(sourceMat,sourceMat,new Size(w,h));
-            Imgproc.cvtColor(sourceMat, sourceMat, Imgproc.COLOR_BGRA2BGR);
-            Imgproc.grabCut(sourceMat, bg, mImageView.roi, bgModel, fgModel, 1, Imgproc.GC_INIT_WITH_RECT);
-            bg = bg.mul(bg,10.);
-            Imgproc.resize(bg,bg,new Size(sourceBtm.getWidth(),sourceBtm.getHeight()));
-            Imgproc.cvtColor(bg, bg, Imgproc.COLOR_GRAY2BGRA);
-            Utils.matToBitmap(bg,sourceBtm);
-        }*/
+    }
+    /**
+     * @param bitmap The source bitmap.
+     * @param opacity a value between 0 (completely transparent) and 255 (completely
+     * opaque).
+     * @return The opacity-adjusted bitmap.  If the source bitmap is mutable it will be
+     * adjusted and returned, otherwise a new bitmap is created.
+     */
+    private Bitmap adjustOpacity(Bitmap bitmap, int opacity)
+    {
+        Bitmap mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvas = new Canvas(mutableBitmap);
+        int colour = (opacity & 0xFF) << 24;
+        canvas.drawColor(colour, PorterDuff.Mode.DST_IN);
+        return mutableBitmap;
     }
 
 
