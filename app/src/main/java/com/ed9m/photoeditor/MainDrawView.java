@@ -1,6 +1,5 @@
 package com.ed9m.photoeditor;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,15 +11,9 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import org.opencv.core.Rect;
-
-import android.view.View;
 import android.widget.ImageView;
 
-import java.sql.DatabaseMetaData;
 
-/**
- * Created by Prothet on 22.01.2015.
- */
 public class MainDrawView extends ImageView {
     Paint paint = new Paint();
     boolean drawRect = false;
@@ -46,7 +39,9 @@ public class MainDrawView extends ImageView {
     @Override
     @SuppressWarnings("deprecation")
     public void setImageBitmap(Bitmap btm) {
+
         super.setImageBitmap(btm);
+
         BitmapDrawable btm_draw = new BitmapDrawable(getResources(), btm);
         btm_draw.setGravity(Gravity.CENTER);
         if (android.os.Build.VERSION.SDK_INT >= 16) {

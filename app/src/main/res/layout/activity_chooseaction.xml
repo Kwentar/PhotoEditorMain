@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:id="@+id/main_layout_choose_action">
     
-    <com.ed9m.photoeditor.MainDrawView
+    <ImageView
         android:id="@+id/image_preview"
         android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+    	android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
         android:src="@drawable/ic_gallery"
 
+
         />
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/color_filter_scroll"
+        android:layout_gravity="bottom|center_horizontal">
+
+        </HorizontalScrollView>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/apply"
-        android:id="@+id/pbtApplyRect"
-        />
-</LinearLayout>
+        android:onClick="testClick"
+        android:text="HAHAHAAH"
+        android:layout_gravity="bottom|center_horizontal"/>
+</FrameLayout>
