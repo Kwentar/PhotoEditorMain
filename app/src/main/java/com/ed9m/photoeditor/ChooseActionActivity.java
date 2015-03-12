@@ -1,5 +1,8 @@
 package com.ed9m.photoeditor;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -14,8 +17,11 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.media.ExifInterface;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -35,9 +41,9 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
 	private ImageView mImageView;
     private SeekBar mSeekBar;
     private LinearLayout mStrengthLayout;
+    private ImageButton mShareBtn;
     private Bitmap sourceBtm;
     private Bitmap resultBtm;
-
     private HorizontalScrollView mColorFiltersScroll;
     private ArrayList<ImageButton> mFilterButtons;
     private ArrayList<Mat> lutMats;
@@ -61,6 +67,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                 mSeekBar.setOnSeekBarChangeListener(this);
                 mStrengthLayout = (LinearLayout)findViewById(R.id.layout_strength);
                 mColorFiltersScroll = (HorizontalScrollView)findViewById(R.id.color_filter_scroll);
+                mShareBtn = (ImageButton)findViewById(R.id.imgBtnShare);
                 int MaxSizeOfImage = 1536;
                 sourceBtm = decodeSampledBitmapFromFile(image_path, MaxSizeOfImage, MaxSizeOfImage);
                 Log.i("OPENING IMAGE", "size of image is " + sourceBtm.getWidth() + "x" + sourceBtm.getHeight());
@@ -120,8 +127,26 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
     }
     //End Seekbar section
     public void onShare(View v) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("image/jpeg");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        resultBtm.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = Environment.getExternalStorageDirectory() + File.separator + "autoRetouch_result.jpg";
+        File f = new File(path);
+        try {
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+        startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
 
     }
+
     public void CreatePreviewColorFilters(Bitmap btm) {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -210,16 +235,18 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         return new View.OnClickListener() {
             public void onClick(View v) {
                 for(int i = 0; i < mFilterButtons.size(); i++) {
-                    if(mStrengthLayout.getVisibility() == View.GONE) {
+                    if(mStrengthLayout.getVisibility() == View.GONE ||
+                            mShareBtn.getVisibility() == View.GONE) {
                         mStrengthLayout.setVisibility(View.VISIBLE);
+                        mShareBtn.setVisibility(View.VISIBLE);
                     }
                     if(mFilterButtons.get(i) == button) {
                         Long tsLong = System.currentTimeMillis();
                         resultBtm = Lut(sourceBtm, lutMats.get(i));
                         Log.i("TIMESTAMP", "time of lut for image is " + (System.currentTimeMillis() - tsLong) + " msec." );
-
                         Bitmap tmp = adjustOpacity(resultBtm, mSeekBar.getProgress());
-                        mImageView.setImageBitmap(overlay(tmp,sourceBtm));
+                        resultBtm = overlay(tmp,sourceBtm);
+                        mImageView.setImageBitmap(resultBtm);
                     }
                 }
             }
