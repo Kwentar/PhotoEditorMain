@@ -29,43 +29,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99866274-c8fd-4e78-a1de-39f17572a366" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_share.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-ldpi/ic_share.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_share.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_share.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_share.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_share.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_00_linear.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_02_goldcopper.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_06_blueselenium.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_13_orangeblue.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_14_orangeyellow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_18_darkgreen.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_19_magentayellow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_20_yellowpinkpurple.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_21_orangeyelloworange.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_29_pastel_1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_aqua_lung.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_bluewhite.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_brain.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_cepheus.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_december_dusk.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_greenwhite.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_old_monitor.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_old_poleroid_proper.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_pastel_crayons.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_red_cloud_blue_sky.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_vanilla2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-nodpi/lut_zartans_swap.png" />
-      <change type="DELETED" beforePath="D:\Projects\Android\PhotoEditorAndroidStudio\app\src\main\res\drawable-nodpi\lut_000_gray.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\Android\PhotoEditorAndroidStudio\app\src\main\res\drawable-nodpi\lut_001_fire.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\Android\PhotoEditorAndroidStudio\app\src\main\res\drawable-nodpi\lut_002_spectrum.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\Android\PhotoEditorAndroidStudio\app\src\main\res\drawable-nodpi\lut_003_ice.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\Android\PhotoEditorAndroidStudio\app\src\main\res\drawable-nodpi\lut_004_phase.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_fullscreen.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_fullscreen.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -95,16 +60,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ChooseActionActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ChooseActionActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1485" max-vertical-offset="5474">
-              <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.8238994" vertical-offset="3641" max-vertical-offset="5933">
+              <caret line="245" column="124" selection-start-line="245" selection-start-column="124" selection-end-line="245" selection-end-column="124" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5071#5078#0" expanded="true" />
-                <element signature="e#8082#8923#0" expanded="true" />
-                <element signature="e#8912#8913#0" expanded="true" />
+                <element signature="e#5801#5841#0" expanded="true" />
+                <element signature="e#6184#6191#0" expanded="true" />
+                <element signature="e#9195#10215#0" expanded="true" />
+                <element signature="e#10204#10205#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,8 +109,8 @@
       <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.76" vertical-offset="0" max-vertical-offset="255">
-              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+            <state vertical-scroll-proportion="-5.44" vertical-offset="0" max-vertical-offset="272">
+              <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -160,13 +126,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_chooseaction.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="activity_chooseaction.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40338984" vertical-offset="0" max-vertical-offset="1292">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.333333" vertical-offset="68" max-vertical-offset="1428">
+              <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
               <folding>
-                <element signature="e#1375#1393#0" expanded="true" />
+                <element signature="e#1764#1782#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1188,11 +1154,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ColorFiltersActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/MainDrawView.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_fullscreen.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
       </list>
     </option>
   </component>
@@ -1568,7 +1534,11 @@
       <created>1426112855698</created>
       <updated>1426112855698</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added first iterations of color filters, refactoring">
+      <created>1426202193504</created>
+      <updated>1426202193504</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1578,7 +1548,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287234" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23451835" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23451835" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1589,14 +1559,14 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.293617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.293617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970184" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970184" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19266056" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19266056" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287234" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="994" y="100" width="694" height="880" />
@@ -1627,7 +1597,8 @@
     <MESSAGE value="imageView now don't stretch images" />
     <MESSAGE value="imageView now don't stretch images&#10;added generation color filters menu from lut images" />
     <MESSAGE value="Now result filter on imageView  + can change overlay param with SeekBar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Now result filter on imageView  + can change overlay param with SeekBar" />
+    <MESSAGE value="Added first iterations of color filters, refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added first iterations of color filters, refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1641,9 +1612,10 @@
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5071#5078#0" expanded="true" />
-            <element signature="e#8082#8923#0" expanded="true" />
-            <element signature="e#8912#8913#0" expanded="true" />
+            <element signature="e#5801#5841#0" expanded="true" />
+            <element signature="e#6184#6191#0" expanded="true" />
+            <element signature="e#9195#10215#0" expanded="true" />
+            <element signature="e#10204#10205#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1671,7 +1643,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="476">
           <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
           <folding>
-            <element signature="e#1375#1393#0" expanded="true" />
+            <element signature="e#1764#1782#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1735,9 +1707,10 @@
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5071#5078#0" expanded="true" />
-            <element signature="e#8082#8923#0" expanded="true" />
-            <element signature="e#8912#8913#0" expanded="true" />
+            <element signature="e#5801#5841#0" expanded="true" />
+            <element signature="e#6184#6191#0" expanded="true" />
+            <element signature="e#9195#10215#0" expanded="true" />
+            <element signature="e#10204#10205#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1765,7 +1738,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="476">
           <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
           <folding>
-            <element signature="e#1375#1393#0" expanded="true" />
+            <element signature="e#1764#1782#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1829,9 +1802,10 @@
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5071#5078#0" expanded="true" />
-            <element signature="e#8082#8923#0" expanded="true" />
-            <element signature="e#8912#8913#0" expanded="true" />
+            <element signature="e#5801#5841#0" expanded="true" />
+            <element signature="e#6184#6191#0" expanded="true" />
+            <element signature="e#9195#10215#0" expanded="true" />
+            <element signature="e#10204#10205#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1859,7 +1833,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="476">
           <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
           <folding>
-            <element signature="e#1375#1393#0" expanded="true" />
+            <element signature="e#1764#1782#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2024,14 +1998,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.76" vertical-offset="0" max-vertical-offset="255">
-          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_fullscreen.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.148148" vertical-offset="0" max-vertical-offset="918">
@@ -2067,30 +2033,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1485" max-vertical-offset="5474">
-          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5071#5078#0" expanded="true" />
-            <element signature="e#8082#8923#0" expanded="true" />
-            <element signature="e#8912#8913#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-5.44" vertical-offset="0" max-vertical-offset="272">
+          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40338984" vertical-offset="0" max-vertical-offset="1292">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.333333" vertical-offset="68" max-vertical-offset="1428">
+          <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
           <folding>
-            <element signature="e#1375#1393#0" expanded="true" />
+            <element signature="e#1764#1782#0" expanded="true" />
           </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8238994" vertical-offset="3641" max-vertical-offset="5933">
+          <caret line="245" column="124" selection-start-line="245" selection-start-column="124" selection-end-line="245" selection-end-column="124" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5801#5841#0" expanded="true" />
+            <element signature="e#6184#6191#0" expanded="true" />
+            <element signature="e#9195#10215#0" expanded="true" />
+            <element signature="e#10204#10205#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
