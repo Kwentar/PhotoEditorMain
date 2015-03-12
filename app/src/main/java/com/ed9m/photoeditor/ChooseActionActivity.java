@@ -14,8 +14,8 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.media.ExifInterface;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -24,69 +24,45 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 	private ImageView mImageView;
-    private SeekBar seekBar;
+    private SeekBar mSeekBar;
+    private LinearLayout mStrengthLayout;
     private Bitmap sourceBtm;
     private Bitmap resultBtm;
-    private HorizontalScrollView colorFiltersScroll;
-    private ArrayList<ImageButton> filterButtons;
-    private ArrayList<Mat> lutMats;
-    private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(this) {
-        @Override
-        public void onManagerConnected(int status) {
-            switch (status) {
-                case LoaderCallbackInterface.SUCCESS:
-                {
-                    Log.i("OpenCV", "OpenCV loaded successfully");
-                    CreatePreviewColorFilters(sourceBtm);
 
-                } break;
-                default:
-                {
-                    super.onManagerConnected(status);
-                } break;
-            }
-        }
-    };
+    private HorizontalScrollView mColorFiltersScroll;
+    private ArrayList<ImageButton> mFilterButtons;
+    private ArrayList<Mat> lutMats;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        filterButtons = new ArrayList<ImageButton>();
+        mFilterButtons = new ArrayList<ImageButton>();
         lutMats = new ArrayList<Mat>();
         Log.i("OpenCV", "Trying to load OpenCV library");
-        if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_9, this, mOpenCVCallBack))
+        if(!OpenCVLoader.initDebug())
         {
             Log.e("OpenCV", "Cannot connect to OpenCV Manager");
         }
-
         else {
             setContentView(R.layout.activity_chooseaction);
             Intent intent = getIntent();
             if (null != intent) {
                 String image_path = intent.getStringExtra("IMAGE_PATH");
                 mImageView = (ImageView) findViewById(R.id.image_preview);
-                seekBar = (SeekBar)findViewById(R.id.seekBar);
-                seekBar.setOnSeekBarChangeListener(this);
-                colorFiltersScroll = (HorizontalScrollView)findViewById(R.id.color_filter_scroll);
-                Display display = getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                int width = size.x;
-                int height = size.y;
-                sourceBtm = decodeSampledBitmapFromFile(image_path, width, height);
+                mSeekBar = (SeekBar)findViewById(R.id.seekBar);
+                mSeekBar.setOnSeekBarChangeListener(this);
+                mStrengthLayout = (LinearLayout)findViewById(R.id.layout_strength);
+                mColorFiltersScroll = (HorizontalScrollView)findViewById(R.id.color_filter_scroll);
+                int MaxSizeOfImage = 1536;
+                sourceBtm = decodeSampledBitmapFromFile(image_path, MaxSizeOfImage, MaxSizeOfImage);
                 Log.i("OPENING IMAGE", "size of image is " + sourceBtm.getWidth() + "x" + sourceBtm.getHeight());
                 ExifInterface ei = null;
                 try {
@@ -117,13 +93,13 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                 }
                 if (sourceBtm != null) {
                     mImageView.setImageBitmap(sourceBtm);
-
+                    CreatePreviewColorFilters(sourceBtm);
                 }
 
             }
         }
 	}
-
+    //SeekBar section
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
                                   boolean fromUser) {
@@ -135,7 +111,6 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
     }
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -143,17 +118,25 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
+    //End Seekbar section
+    public void onShare(View v) {
+
+    }
     public void CreatePreviewColorFilters(Bitmap btm) {
-        int maxSize = 200;
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int maxSize = size.x/4;
+
 
         Field[] all_fields = R.drawable.class.getFields();
         ArrayList<Field> lut_fields = new ArrayList<Field>();
         Size goalSize = new Size();
         if(btm.getWidth() > btm.getHeight()) {
-            goalSize.width = 200;
+            goalSize.width = maxSize;
             goalSize.height = btm.getHeight() * maxSize / btm.getWidth();
         } else {
-            goalSize.height = 200;
+            goalSize.height = maxSize;
             goalSize.width = btm.getWidth() * maxSize / btm.getHeight();
         }
         Mat srcResize = new Mat();
@@ -161,12 +144,47 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         Imgproc.cvtColor(srcResize, srcResize, Imgproc.COLOR_RGBA2BGR);
         Imgproc.resize(srcResize, srcResize, goalSize);
         //get lut resources
+        int ii = 0;
         for(Field field: all_fields) {
-            Log.i("Raw Asset: ", field.getName());
             if (field.getName().contains("lut")) {
                 lut_fields.add(field);
+                Log.i("LUTS", ii + " lut is " + field.getName());
+                ii+=1;
             }
         }
+        LoadLUTs(lut_fields);
+
+        Mat srcRGBA = new Mat();
+        Imgproc.cvtColor(srcResize,srcRGBA,Imgproc.COLOR_BGR2RGBA);
+        Bitmap srcBtm = Bitmap.createBitmap(srcResize.width(), srcResize.height(), Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(srcRGBA, srcBtm);
+        Long tsLong = System.currentTimeMillis();
+        for(Mat lut: lutMats) {
+            ImageButton tmp = new ImageButton(this);
+            if(Build.VERSION.SDK_INT >=16) {
+                tmp.setBackground(null);
+            }
+            tmp.setOnClickListener(getOnClickImageButton(tmp));
+            Bitmap resBtm = Lut(srcBtm, lut);
+            resBtm = adjustOpacity(resBtm,110);
+
+            tmp.setImageBitmap(overlay(resBtm,srcBtm));
+            mFilterButtons.add(tmp);
+        }
+        Long tsLongEnd = System.currentTimeMillis();
+        Log.i("TIMESTAMP", "time of lut for buttons is " + (tsLongEnd - tsLong) + " msec." );
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+        for(ImageButton imageButton : mFilterButtons) {
+            layout.addView(imageButton);
+        }
+
+        mColorFiltersScroll.addView(layout);
+
+    }
+
+    private void LoadLUTs(ArrayList<Field> lut_fields) {
         //load lut resources
         for(Field field : lut_fields) {
             Mat tMat = null;
@@ -186,40 +204,21 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
             //Imgproc.cvtColor(tMat, tMat, Imgproc.COLOR_BGR2RGBA);
             lutMats.add(tMat);
         }
-
-        Mat srcRGBA = new Mat();
-        Imgproc.cvtColor(srcResize,srcRGBA,Imgproc.COLOR_BGR2RGBA);
-        Bitmap srcBtm = Bitmap.createBitmap(srcResize.width(), srcResize.height(), Bitmap.Config.ARGB_8888);
-        Utils.matToBitmap(srcRGBA, srcBtm);
-        //Mat resF = new Mat(srcResize.size(), CvType.CV_32FC3);
-        for(Mat lut: lutMats) {
-            ImageButton tmp = new ImageButton(this);
-            tmp.setBackground(null);
-            tmp.setOnClickListener(getOnClickImageButton(tmp));
-            Bitmap resBtm = Lut(srcBtm, lut);
-            resBtm = adjustOpacity(resBtm,90);
-
-            tmp.setImageBitmap(overlay(resBtm,srcBtm));
-            filterButtons.add(tmp);
-        }
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-        for(ImageButton imageButton : filterButtons) {
-            layout.addView(imageButton);
-        }
-
-        colorFiltersScroll.addView(layout);
-
     }
+
     View.OnClickListener getOnClickImageButton(final ImageButton button)  {
         return new View.OnClickListener() {
             public void onClick(View v) {
-                for(int i = 0; i < filterButtons.size(); i++) {
-                    if(filterButtons.get(i) == button) {
+                for(int i = 0; i < mFilterButtons.size(); i++) {
+                    if(mStrengthLayout.getVisibility() == View.GONE) {
+                        mStrengthLayout.setVisibility(View.VISIBLE);
+                    }
+                    if(mFilterButtons.get(i) == button) {
+                        Long tsLong = System.currentTimeMillis();
                         resultBtm = Lut(sourceBtm, lutMats.get(i));
-                        Bitmap tmp = adjustOpacity(resultBtm,seekBar.getProgress());
+                        Log.i("TIMESTAMP", "time of lut for image is " + (System.currentTimeMillis() - tsLong) + " msec." );
+
+                        Bitmap tmp = adjustOpacity(resultBtm, mSeekBar.getProgress());
                         mImageView.setImageBitmap(overlay(tmp,sourceBtm));
                     }
                 }
@@ -247,7 +246,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
             Canvas canvas = new Canvas(bmOverlay);
             Paint paint = new Paint();
             canvas.drawBitmap(bmp1, 0, 0, paint);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
 
             canvas.drawBitmap(bmp2, 0, 0, paint);
             return bmOverlay;

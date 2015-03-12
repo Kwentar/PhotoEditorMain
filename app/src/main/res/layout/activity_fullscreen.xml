@@ -3,7 +3,7 @@
     android:id="@+id/main_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#3B3B3B"
+    android:background="@color/standard_background"
     android:gravity="fill"
     android:orientation="vertical"
     tools:context="com.ed9m.photoeditor.FullscreenActivity" >
