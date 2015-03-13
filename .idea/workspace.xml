@@ -29,7 +29,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99866274-c8fd-4e78-a1de-39f17572a366" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhotoEditor.iws" />
@@ -62,13 +61,13 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.8144654" vertical-offset="1624" max-vertical-offset="5933">
-              <caret line="126" column="26" selection-start-line="126" selection-start-column="26" selection-end-line="126" selection-end-column="26" />
+              <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5805#5845#0" expanded="true" />
-                <element signature="e#6188#6195#0" expanded="true" />
-                <element signature="e#9199#10219#0" expanded="true" />
-                <element signature="e#10208#10209#0" expanded="true" />
+                <element signature="e#5804#5844#0" expanded="true" />
+                <element signature="e#6187#6194#0" expanded="true" />
+                <element signature="e#9198#10218#0" expanded="true" />
+                <element signature="e#10207#10208#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1557,7 +1556,11 @@
       <created>1426250694564</created>
       <updated>1426250694564</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Refactoring">
+      <created>1426251023176</created>
+      <updated>1426251023176</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1633,10 +1636,10 @@
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5805#5845#0" expanded="true" />
-            <element signature="e#6188#6195#0" expanded="true" />
-            <element signature="e#9199#10219#0" expanded="true" />
-            <element signature="e#10208#10209#0" expanded="true" />
+            <element signature="e#5804#5844#0" expanded="true" />
+            <element signature="e#6187#6194#0" expanded="true" />
+            <element signature="e#9198#10218#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1728,10 +1731,10 @@
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5805#5845#0" expanded="true" />
-            <element signature="e#6188#6195#0" expanded="true" />
-            <element signature="e#9199#10219#0" expanded="true" />
-            <element signature="e#10208#10209#0" expanded="true" />
+            <element signature="e#5804#5844#0" expanded="true" />
+            <element signature="e#6187#6194#0" expanded="true" />
+            <element signature="e#9198#10218#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1823,10 +1826,10 @@
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5805#5845#0" expanded="true" />
-            <element signature="e#6188#6195#0" expanded="true" />
-            <element signature="e#9199#10219#0" expanded="true" />
-            <element signature="e#10208#10209#0" expanded="true" />
+            <element signature="e#5804#5844#0" expanded="true" />
+            <element signature="e#6187#6194#0" expanded="true" />
+            <element signature="e#9198#10218#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2078,13 +2081,13 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8144654" vertical-offset="1624" max-vertical-offset="5933">
-          <caret line="126" column="26" selection-start-line="126" selection-start-column="26" selection-end-line="126" selection-end-column="26" />
+          <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5805#5845#0" expanded="true" />
-            <element signature="e#6188#6195#0" expanded="true" />
-            <element signature="e#9199#10219#0" expanded="true" />
-            <element signature="e#10208#10209#0" expanded="true" />
+            <element signature="e#5804#5844#0" expanded="true" />
+            <element signature="e#6187#6194#0" expanded="true" />
+            <element signature="e#9198#10218#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
           </folding>
         </state>
       </provider>
