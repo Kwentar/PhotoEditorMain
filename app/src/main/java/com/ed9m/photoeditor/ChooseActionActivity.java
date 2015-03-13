@@ -17,7 +17,6 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.media.ExifInterface;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -135,10 +134,11 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         String path = Environment.getExternalStorageDirectory() + File.separator + "autoRetouch_result.jpg";
         File f = new File(path);
         try {
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            fo.close();
+            if(f.createNewFile()) {
+                FileOutputStream fo = new FileOutputStream(f);
+                fo.write(bytes.toByteArray());
+                fo.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

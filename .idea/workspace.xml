@@ -30,8 +30,6 @@
   <component name="ChangeListManager">
     <list default="true" id="99866274-c8fd-4e78-a1de-39f17572a366" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhotoEditor.iws" />
@@ -63,14 +61,13 @@
       <file leaf-file-name="ChooseActionActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8238994" vertical-offset="3641" max-vertical-offset="5933">
-              <caret line="245" column="124" selection-start-line="245" selection-start-column="124" selection-end-line="245" selection-end-column="124" />
+            <state vertical-scroll-proportion="0.33333334" vertical-offset="94" max-vertical-offset="5933">
+              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#5801#5841#0" expanded="true" />
-                <element signature="e#6184#6191#0" expanded="true" />
-                <element signature="e#9195#10215#0" expanded="true" />
-                <element signature="e#10204#10205#0" expanded="true" />
+                <element signature="e#5804#5844#0" expanded="true" />
+                <element signature="e#6187#6194#0" expanded="true" />
+                <element signature="e#9198#10218#0" expanded="true" />
+                <element signature="e#10207#10208#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1345,6 +1342,10 @@
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
     <property name="FullScreen" value="false" />
     <property name="extract.method.default.visibility" value="private" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Confirmation" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -1538,12 +1539,16 @@
       <created>1426202193504</created>
       <updated>1426202193504</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added share function #PE-4 Fixed">
+      <created>1426203315848</created>
+      <updated>1426203315848</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1804" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287234" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1559,7 +1564,7 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.293617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.293617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970184" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1598,7 +1603,8 @@
     <MESSAGE value="imageView now don't stretch images&#10;added generation color filters menu from lut images" />
     <MESSAGE value="Now result filter on imageView  + can change overlay param with SeekBar" />
     <MESSAGE value="Added first iterations of color filters, refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added first iterations of color filters, refactoring" />
+    <MESSAGE value="Added share function #PE-4 Fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added share function #PE-4 Fixed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1611,11 +1617,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1564" max-vertical-offset="2958">
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5801#5841#0" expanded="true" />
-            <element signature="e#6184#6191#0" expanded="true" />
-            <element signature="e#9195#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
+            <element signature="e#5804#5844#0" expanded="true" />
+            <element signature="e#6187#6194#0" expanded="true" />
+            <element signature="e#9198#10218#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1706,11 +1711,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1564" max-vertical-offset="2958">
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5801#5841#0" expanded="true" />
-            <element signature="e#6184#6191#0" expanded="true" />
-            <element signature="e#9195#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
+            <element signature="e#5804#5844#0" expanded="true" />
+            <element signature="e#6187#6194#0" expanded="true" />
+            <element signature="e#9198#10218#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1801,11 +1805,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1564" max-vertical-offset="2958">
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5801#5841#0" expanded="true" />
-            <element signature="e#6184#6191#0" expanded="true" />
-            <element signature="e#9195#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
+            <element signature="e#5804#5844#0" expanded="true" />
+            <element signature="e#6187#6194#0" expanded="true" />
+            <element signature="e#9198#10218#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2056,14 +2059,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8238994" vertical-offset="3641" max-vertical-offset="5933">
-          <caret line="245" column="124" selection-start-line="245" selection-start-column="124" selection-end-line="245" selection-end-column="124" />
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="94" max-vertical-offset="5933">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5801#5841#0" expanded="true" />
-            <element signature="e#6184#6191#0" expanded="true" />
-            <element signature="e#9195#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
+            <element signature="e#5804#5844#0" expanded="true" />
+            <element signature="e#6187#6194#0" expanded="true" />
+            <element signature="e#9198#10218#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
           </folding>
         </state>
       </provider>
