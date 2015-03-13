@@ -11,6 +11,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1">
+
+        <ImageView
+
+            android:id="@+id/image_preview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_gallery"
+            android:layout_gravity="top|center_horizontal"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,13 +30,6 @@
             android:layout_margin="8dp"
             android:id="@+id/imgBtnShare"
             android:visibility="gone"/>
-        <ImageView
-            android:id="@+id/image_preview"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_gallery"
-            android:layout_gravity="top|center_horizontal"/>
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -52,7 +54,6 @@
         </LinearLayout>
     </FrameLayout>
     <LinearLayout
-        android:layout_weight="0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
@@ -70,9 +71,15 @@
             android:paddingTop="8dp">
 
         </HorizontalScrollView>
-
-
-        </LinearLayout>
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:layout_gravity="bottom|center_horizontal"
+            android:id="@+id/adView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_id"/>
+     </LinearLayout>
 
 
 </LinearLayout>

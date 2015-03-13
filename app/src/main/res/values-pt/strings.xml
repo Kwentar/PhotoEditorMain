@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Comely colors</string>
+    <string name="app_name">Cores graciosas</string>
     <string name="icon_desc">app icon</string>
     <string name="camera_desc">Take photo from camera</string>
     <string name="gallery_desc">Get image from gallery</string>
-    <string name="strength">Strength: </string>
-    <string name="send_to">Share image</string>
+    <string name="strength">Força:</string>
+    <string name="send_to">Compartilhar</string>
     <string name="banner_id">ca-app-pub-2894837791244278/3605899343</string>
 </resources>

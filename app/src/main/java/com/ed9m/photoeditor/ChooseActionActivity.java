@@ -29,6 +29,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
@@ -47,7 +51,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
     private ArrayList<ImageButton> mFilterButtons;
     private ArrayList<Mat> lutMats;
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         mFilterButtons = new ArrayList<ImageButton>();
         lutMats = new ArrayList<Mat>();
@@ -58,6 +62,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         }
         else {
             setContentView(R.layout.activity_chooseaction);
+
             Intent intent = getIntent();
             if (null != intent) {
                 String image_path = intent.getStringExtra("IMAGE_PATH");
@@ -78,6 +83,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                     e.printStackTrace();
                 }
                 int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
                 switch (orientation) {
                     case ExifInterface.ORIENTATION_ROTATE_90:
                         Log.i("OPENING IMAGE", "rotation is 90");
@@ -100,6 +106,10 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                 if (sourceBtm != null) {
                     mImageView.setImageBitmap(sourceBtm);
                     CreatePreviewColorFilters(sourceBtm);
+                    // Поиск AdView как ресурса и отправка запроса.
+                    AdView adView = (AdView)this.findViewById(R.id.adView);
+                    AdRequest adRequest = new AdRequest.Builder().build();
+                    adView.loadAd(adRequest);
                 }
 
             }

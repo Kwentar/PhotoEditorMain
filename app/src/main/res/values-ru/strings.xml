@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Comely colors</string>
+    <string name="icon_desc">Иконка приложения</string>
+    <string name="camera_desc">Сделать снимок</string>
+    <string name="gallery_desc">Открыть фото с галлереи</string>
+    <string name="strength">Уровень: </string>
+    <string name="send_to">Поделиться</string>
+    <string name="banner_id">ca-app-pub-2894837791244278/3605899343</string>
+</resources>
