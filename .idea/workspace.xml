@@ -1584,7 +1584,11 @@
       <created>1426290655412</created>
       <updated>1426290655412</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="error #PE-2 Fixed work 1h10m add ads">
+      <created>1426290774083</created>
+      <updated>1426290774083</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1649,7 +1653,8 @@
     <MESSAGE value="test commit" />
     <MESSAGE value="cosmetics, pre-release version" />
     <MESSAGE value="added ads #PE-3 State Fixed work 1h10m add ads" />
-    <option name="LAST_COMMIT_MESSAGE" value="added ads #PE-3 State Fixed work 1h10m add ads" />
+    <MESSAGE value="error #PE-2 Fixed work 1h10m add ads" />
+    <option name="LAST_COMMIT_MESSAGE" value="error #PE-2 Fixed work 1h10m add ads" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
