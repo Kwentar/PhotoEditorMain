@@ -9,10 +9,11 @@
     tools:context="com.ed9m.photoeditor.FullscreenActivity" >
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" 
-        android:layout_margin="25dp"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/main_screen"
+        android:layout_weight="1"
         android:contentDescription="@string/icon_desc"
         />
 
@@ -22,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_weight="1"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_weight="0.5">
 
         <ImageButton
             android:id="@+id/ibt_gallery"

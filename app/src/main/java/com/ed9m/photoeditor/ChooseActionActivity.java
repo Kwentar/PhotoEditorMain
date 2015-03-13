@@ -111,7 +111,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                                   boolean fromUser) {
         if(resultBtm != null)
         {
-            Bitmap tmp = adjustOpacity(resultBtm, progress).copy(resultBtm.getConfig(),true);
+            Bitmap tmp = adjustOpacity(resultBtm, progress).copy(resultBtm.getConfig(),false);
             mImageView.setImageBitmap(overlay(tmp,sourceBtm));
         }
     }
@@ -244,9 +244,8 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                         Long tsLong = System.currentTimeMillis();
                         resultBtm = Lut(sourceBtm, lutMats.get(i));
                         Log.i("TIMESTAMP", "time of lut for image is " + (System.currentTimeMillis() - tsLong) + " msec." );
-                        Bitmap tmp = adjustOpacity(resultBtm, mSeekBar.getProgress());
-                        resultBtm = overlay(tmp,sourceBtm);
-                        mImageView.setImageBitmap(resultBtm);
+                        Bitmap tmp = adjustOpacity(resultBtm, mSeekBar.getProgress()).copy(resultBtm.getConfig(), true);
+                        mImageView.setImageBitmap(overlay(tmp,sourceBtm));
                     }
                 }
             }
