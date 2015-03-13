@@ -38,21 +38,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99866274-c8fd-4e78-a1de-39f17572a366" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/main_screen.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_6_5_87.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values-pt/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values-ru/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/FullscreenActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/FullscreenActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_fullscreen.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_fullscreen.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Projects\Android\PhotoEditorAndroidStudio\.idea\libraries\support_annotations_20_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_0.xml" />
-      <change type="MOVED" beforePath="D:\Projects\Android\PhotoEditorAndroidStudio\.idea\libraries\support_v4_20_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_0.xml" />
     </list>
     <ignored path="PhotoEditor.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1594,7 +1580,11 @@
       <created>1426286766317</created>
       <updated>1426286766317</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added ads #PE-3 State Fixed work 1h10m add ads">
+      <created>1426290655412</created>
+      <updated>1426290655412</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1658,7 +1648,8 @@
     <MESSAGE value="Refactoring" />
     <MESSAGE value="test commit" />
     <MESSAGE value="cosmetics, pre-release version" />
-    <option name="LAST_COMMIT_MESSAGE" value="cosmetics, pre-release version" />
+    <MESSAGE value="added ads #PE-3 State Fixed work 1h10m add ads" />
+    <option name="LAST_COMMIT_MESSAGE" value="added ads #PE-3 State Fixed work 1h10m add ads" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
