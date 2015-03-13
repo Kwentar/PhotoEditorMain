@@ -1553,7 +1553,11 @@
       <created>1426250341940</created>
       <updated>1426250341940</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Refactoring">
+      <created>1426250694564</created>
+      <updated>1426250694564</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
