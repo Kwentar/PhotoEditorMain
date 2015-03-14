@@ -32,6 +32,9 @@ import android.widget.SeekBar;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
@@ -50,6 +53,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
     private HorizontalScrollView mColorFiltersScroll;
     private ArrayList<ImageButton> mFilterButtons;
     private ArrayList<Mat> lutMats;
+    private Tracker tracker;
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,6 +67,12 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         else {
             setContentView(R.layout.activity_chooseaction);
 
+            tracker = GoogleAnalytics.getInstance(this).newTracker("UA-60747222-1");
+            // Set screen name.
+            // Where path is a String representing the screen name.
+            tracker.setScreenName(getClass().toString());
+            // Send a screen view.
+            tracker.send(new HitBuilders.AppViewBuilder().build());
             Intent intent = getIntent();
             if (null != intent) {
                 String image_path = intent.getStringExtra("IMAGE_PATH");
@@ -108,8 +118,9 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                     CreatePreviewColorFilters(sourceBtm);
                     // Поиск AdView как ресурса и отправка запроса.
                     AdView adView = (AdView)this.findViewById(R.id.adView);
-                    AdRequest adRequest = new AdRequest.Builder().build();
+                    AdRequest adRequest = new AdRequest.Builder().addTestDevice("6C524DC975C733EB2D79C60C05DF2D01").build();
                     adView.loadAd(adRequest);
+
                 }
 
             }

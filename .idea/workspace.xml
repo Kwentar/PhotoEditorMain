@@ -38,6 +38,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99866274-c8fd-4e78-a1de-39f17572a366" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PhotoEditor.iws" />
@@ -66,14 +67,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ChooseActionActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ChooseActionActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1598" max-vertical-offset="6052">
-              <caret line="111" column="45" selection-start-line="111" selection-start-column="45" selection-end-line="111" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.35849056" vertical-offset="996" max-vertical-offset="6239">
+              <caret line="72" column="57" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6547#6554#0" expanded="true" />
+                <element signature="e#6749#6789#0" expanded="true" />
+                <element signature="e#7132#7139#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,13 +101,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_chooseaction.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="activity_chooseaction.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44663382" vertical-offset="663" max-vertical-offset="1547">
+            <state vertical-scroll-proportion="-10.074074" vertical-offset="663" max-vertical-offset="1547">
               <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
               <folding>
                 <element signature="e#1766#1784#0" expanded="true" />
@@ -1189,8 +1191,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values-ru/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/FullscreenActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_fullscreen.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java" />
       </list>
     </option>
   </component>
@@ -1588,7 +1590,11 @@
       <created>1426290774083</created>
       <updated>1426290774083</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="error2 #PE-2 Fixed work 1h10m add ads">
+      <created>1426291003891</created>
+      <updated>1426291003891</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1598,7 +1604,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287234" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23451835" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23451835" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1654,7 +1660,8 @@
     <MESSAGE value="cosmetics, pre-release version" />
     <MESSAGE value="added ads #PE-3 State Fixed work 1h10m add ads" />
     <MESSAGE value="error #PE-2 Fixed work 1h10m add ads" />
-    <option name="LAST_COMMIT_MESSAGE" value="error #PE-2 Fixed work 1h10m add ads" />
+    <MESSAGE value="error2 #PE-2 Fixed work 1h10m add ads" />
+    <option name="LAST_COMMIT_MESSAGE" value="error2 #PE-2 Fixed work 1h10m add ads" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1732,7 +1739,8 @@
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6547#6554#0" expanded="true" />
+            <element signature="e#6749#6789#0" expanded="true" />
+            <element signature="e#7132#7139#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1829,7 +1837,8 @@
           <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6547#6554#0" expanded="true" />
+            <element signature="e#6749#6789#0" expanded="true" />
+            <element signature="e#7132#7139#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2099,27 +2108,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1598" max-vertical-offset="6052">
-          <caret line="111" column="45" selection-start-line="111" selection-start-column="45" selection-end-line="111" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6547#6554#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chooseaction.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44663382" vertical-offset="663" max-vertical-offset="1547">
+        <state vertical-scroll-proportion="-10.074074" vertical-offset="663" max-vertical-offset="1547">
           <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
           <folding>
             <element signature="e#1766#1784#0" expanded="true" />
             <element signature="e#3327#3346#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ed9m/photoeditor/ChooseActionActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35849056" vertical-offset="996" max-vertical-offset="6239">
+          <caret line="72" column="57" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6749#6789#0" expanded="true" />
+            <element signature="e#7132#7139#0" expanded="true" />
           </folding>
         </state>
       </provider>
