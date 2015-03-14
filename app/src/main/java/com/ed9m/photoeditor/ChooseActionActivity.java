@@ -17,6 +17,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -57,7 +58,8 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
     private ArrayList<ImageButton> mFilterButtons;
     private ArrayList<Mat> lutMats;
     private Tracker tracker;
-	@Override
+    private File fShare;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         mFilterButtons = new ArrayList<ImageButton>();
@@ -133,6 +135,14 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
             }
         }
 	}
+    @Override
+    public void onDestroy() {
+        if(fShare != null) {
+            if(!fShare.delete()) {
+                Log.i("SHARE FILE", "I cannot remove share file");
+            }
+        }
+    }
     //SeekBar section
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
@@ -154,23 +164,28 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
     }
     //End Seekbar section
     public void onShare(View v) {
+
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("image/jpeg");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        resultBtm.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = Environment.getExternalStorageDirectory() + File.separator + "autoRetouch_result.jpg";
-        File f = new File(path);
+        Bitmap res = ((BitmapDrawable)mImageView.getDrawable()).getBitmap();
+        res.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = Environment.getExternalStorageDirectory() + File.separator + "comely_color_result.jpg";
         try {
-            if(f.createNewFile()) {
-                FileOutputStream fo = new FileOutputStream(f);
-                fo.write(bytes.toByteArray());
-                fo.close();
+            fShare = new File(path);
+            if(!fShare.exists()) {
+                if(!fShare.createNewFile()) {
+                    Log.i("SHARE FILE", "I cannot create share file");
+                }
             }
+            FileOutputStream fo = new FileOutputStream(fShare);
+            fo.write(bytes.toByteArray());
+            fo.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(fShare.getAbsolutePath()));
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
 
     }
