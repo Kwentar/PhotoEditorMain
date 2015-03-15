@@ -1,12 +1,20 @@
 package com.ed9m.photoeditor;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
+
+import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
+import org.opencv.highgui.Highgui;
+import org.opencv.imgproc.Imgproc;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 
@@ -26,13 +34,14 @@ public class MemoryManager {
     public Mat matSmallSource;
     public Mat matSmallResult;
     public Mat matSmallTmp;
+    public ArrayList<Mat> lutMats;
     private boolean bWasInit = false;
     private Size smallSize;
     public void Init(Display display, int countFilters) {
         if(!bWasInit) {
             Size normalSize = new Size(sourceBtm.getWidth(), sourceBtm.getHeight());
             smallTmpBtms = new ArrayList<Bitmap>();
-
+            lutMats = new ArrayList<Mat>();
             smallSize = new Size();
             Point size = new Point();
             display.getSize(size);
@@ -67,6 +76,30 @@ public class MemoryManager {
     public Size getSmallSize() {
         return smallSize;
     }
+    public void LoadLUTs(ArrayList<Field> lut_fields, Context context) {
+        //load lut resources
+        for(Field field : lut_fields) {
+            Mat tMat;
+            Mat lMat = null;
+            int resId = 0;
+            try {
+                resId = field.getInt(field);
+            }
+            catch (Exception e) {
+                Log.e("Resources", "resId not exist: " + e.getMessage());
+            }
+            try {
+                tMat = Utils.loadResource(context, resId, Highgui.CV_LOAD_IMAGE_COLOR);
+                lMat = new Mat(tMat.size(), CvType.CV_8UC4);
+                Imgproc.cvtColor(tMat, lMat, Imgproc.COLOR_BGR2RGBA);
+                tMat.release();
+            }
+            catch (IOException e) {
+                Log.e("Resources", "load resId = " + Integer.toString(resId)+ ": " + e.getMessage());
+            }
+            lutMats.add(lMat);
+        }
+    }
     public void Release() {
         bWasInit = false;
         matResult.release();
@@ -75,6 +108,9 @@ public class MemoryManager {
         matSmallSource.release();
         matSmallResult.release();
         matSmallTmp.release();
+        for(Mat lut:lutMats) {
+            lut.release();
+        }
         if(!sourceBtm.isRecycled())
             sourceBtm.recycle();
         if(!resultBtm.isRecycled())

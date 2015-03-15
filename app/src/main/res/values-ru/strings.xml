@@ -7,5 +7,13 @@
     <string name="gallery_desc">Открыть фото с галлереи</string>
     <string name="strength">Уровень: </string>
     <string name="send_to">Поделиться</string>
+    <string name="blend">Режим\nсмешивания:</string>
+    <string-array name="blend_modes">
+        <item>Наложение</item>
+        <item>Осветление</item>
+        <item>Обычный</item>
+        <item>Экран</item>
+        <item>Затемнение</item>
+    </string-array>
     <string name="banner_id">ca-app-pub-2894837791244278/3605899343</string>
 </resources>

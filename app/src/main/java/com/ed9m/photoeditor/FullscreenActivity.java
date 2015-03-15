@@ -75,7 +75,12 @@ public class FullscreenActivity extends Activity {
 			hideSystemUI();				
 		} 
 	}
-	
+
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 	private void hideSystemUI() {
 		getWindow().getDecorView().setSystemUiVisibility(
 	            View.SYSTEM_UI_FLAG_LAYOUT_STABLE

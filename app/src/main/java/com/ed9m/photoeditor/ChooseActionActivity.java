@@ -26,11 +26,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -39,29 +43,27 @@ import com.google.android.gms.analytics.Tracker;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 
-public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
+public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarChangeListener, Spinner.OnItemSelectedListener {
 	private ImageView mImageView;
     private SeekBar mSeekBar;
+    private Spinner blend_spinner;
     private LinearLayout mStrengthLayout;
+    private LinearLayout mInnerScrollLayout;
     private ImageButton mShareBtn;
-    private HorizontalScrollView mColorFiltersScroll;
     private ArrayList<ImageButton> mFilterButtons;
-    //TODO: transfer to memoryManager
-    private ArrayList<Mat> lutMats;
     private Tracker tracker;
     private File fShare;
+    private PorterDuff.Mode currBlendMode;
     private MemoryManager mm;
+    private int currentLutIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        currentLutIndex = -1;
         mFilterButtons = new ArrayList<ImageButton>();
-        lutMats = new ArrayList<Mat>();
-
         mm = MemoryManager.Instance;
         Log.i("OpenCV", "Trying to load OpenCV library");
         if(!OpenCVLoader.initDebug())
@@ -80,8 +82,15 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                 mSeekBar = (SeekBar)findViewById(R.id.seekBar);
                 mSeekBar.setOnSeekBarChangeListener(this);
                 mStrengthLayout = (LinearLayout)findViewById(R.id.layout_strength);
-                mColorFiltersScroll = (HorizontalScrollView)findViewById(R.id.color_filter_scroll);
+                mInnerScrollLayout = (LinearLayout)findViewById(R.id.inner_scroll_layout);
                 mShareBtn = (ImageButton)findViewById(R.id.imgBtnShare);
+                blend_spinner = (Spinner) findViewById(R.id.blend_spinner);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                        R.array.blend_modes, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                blend_spinner.setAdapter(adapter);
+                blend_spinner.setOnItemSelectedListener(this);
+                currBlendMode = PorterDuff.Mode.OVERLAY;
                 int MaxSizeOfImage = 1536;
                 mm.sourceBtm = decodeSampledBitmapFromFile(image_path, MaxSizeOfImage, MaxSizeOfImage);
                 Log.i("OPENING IMAGE", "size of image is " + mm.sourceBtm.getWidth() + "x" + mm.sourceBtm.getHeight());
@@ -100,7 +109,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                         mm.sourceBtm = RotateBitmap(mm.sourceBtm, 90);
                         break;
                     case ExifInterface.ORIENTATION_TRANSPOSE:
-                        Log.i("OPENING IMAGE", "rotation is transopse");
+                        Log.i("OPENING IMAGE", "rotation is transpose");
                         mm.sourceBtm = RotateBitmap(mm.sourceBtm, 270);
                         break;
 
@@ -138,10 +147,6 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                 Log.i("SHARE FILE", "I cannot remove share file");
             }
         }
-        //TODO: transfer to mm
-        for(Mat lut:lutMats) {
-            lut.release();
-        }
         mm.Release();
         System.gc();
     }
@@ -152,7 +157,7 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         if(mm.resultBtm != null)
         {
             adjustOpacity(mm.resultBtm, mm.alphaBtm, progress);
-            overlay(mm.alphaBtm,mm.sourceBtm,mm.tmpBtm);
+            blend(mm.alphaBtm, mm.sourceBtm, mm.tmpBtm);
             mImageView.setImageBitmap(mm.tmpBtm);
         }
     }
@@ -165,7 +170,48 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
-    //End Seekbar section
+    //End SeekBar section
+    //Spinner section
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+        String currModeStr = adapterView.getItemAtPosition(pos).toString();
+        Log.i("SELECTED ITEM",currModeStr);
+        boolean bNothingChange = false;
+        String[] blendModes = getResources().getStringArray(R.array.blend_modes);
+        if(currModeStr.equals(blendModes[0])) {
+            if(currBlendMode == PorterDuff.Mode.OVERLAY)
+                bNothingChange = true;
+            currBlendMode = PorterDuff.Mode.OVERLAY;
+        }
+        else if(currModeStr.equals(blendModes[1])) {
+            currBlendMode = PorterDuff.Mode.LIGHTEN;
+        }
+        else if(currModeStr.equals(blendModes[2])) {
+            currBlendMode = PorterDuff.Mode.DST_OVER;
+        }
+        else if(currModeStr.equals(blendModes[3])) {
+            currBlendMode = PorterDuff.Mode.SCREEN;
+        }
+        else if(currModeStr.equals(blendModes[4])) {
+            currBlendMode = PorterDuff.Mode.DARKEN;
+        }
+        if(mm.smallSourceBtm != null && !bNothingChange) {
+            InitButtonsLayout();
+            if(currentLutIndex != -1) {
+                Lut(mm.matSource, mm.matTmp, mm.lutMats.get(currentLutIndex), mm.resultBtm);
+                adjustOpacity(mm.resultBtm, mm.alphaBtm, mSeekBar.getProgress());
+                blend(mm.alphaBtm, mm.sourceBtm, mm.tmpBtm);
+                mImageView.setImageBitmap(mm.tmpBtm);
+            }
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+    //End Spinner section
     public void onShare(View v) {
 
         Intent shareIntent = new Intent();
@@ -196,75 +242,44 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
 
         Field[] all_fields = R.drawable.class.getFields();
         ArrayList<Field> lut_fields = new ArrayList<Field>();
-        int ii = 0;
         for(Field field: all_fields) {
             if (field.getName().contains("lut")) {
                 lut_fields.add(field);
-                Log.i("LUTS", ii + " lut is " + field.getName());
-                ii+=1;
             }
         }
         mm.Init(getWindowManager().getDefaultDisplay(), lut_fields.size());
         Utils.bitmapToMat(btm, mm.matSource);
-
-        //Imgproc.cvtColor(srcResize, srcResize, Imgproc.COLOR_RGBA2BGR);
         Imgproc.resize(mm.matSource, mm.matSmallSource, mm.getSmallSize());
-        //get lut resources
 
-        LoadLUTs(lut_fields);
+        mm.LoadLUTs(lut_fields, this);
         Utils.matToBitmap(mm.matSmallSource, mm.smallSourceBtm);
-        Long tsLong = System.currentTimeMillis();
+        InitButtonsLayout();
 
-        for(int i = 0; i <lutMats.size(); i++) {
+    }
+
+    public void InitButtonsLayout() {
+        mInnerScrollLayout.removeAllViews();
+        mFilterButtons.clear();
+        Long tsLong = System.currentTimeMillis();
+        for(int i = 0; i <mm.lutMats.size(); i++) {
             ImageButton tmp = new ImageButton(this);
             if(Build.VERSION.SDK_INT >=16) {
                 tmp.setBackground(null);
             }
             tmp.setOnClickListener(getOnClickImageButton(tmp));
-            Lut(mm.matSmallSource, mm.matSmallTmp, lutMats.get(i), mm.smallResultBtm);
+            Lut(mm.matSmallSource, mm.matSmallTmp, mm.lutMats.get(i), mm.smallResultBtm);
             adjustOpacity(mm.smallResultBtm, mm.smallAlphaBtm, 110);
-            overlay(mm.smallAlphaBtm, mm.smallSourceBtm, mm.smallTmpBtms.get(i));
+            blend(mm.smallAlphaBtm, mm.smallSourceBtm, mm.smallTmpBtms.get(i));
             tmp.setImageBitmap(mm.smallTmpBtms.get(i));
             mFilterButtons.add(tmp);
         }
         Long tsLongEnd = System.currentTimeMillis();
         Log.i("TIMESTAMP", "time of lut for buttons is " + (tsLongEnd - tsLong) + " msec." );
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
         for(ImageButton imageButton : mFilterButtons) {
-            layout.addView(imageButton);
-        }
-
-        mColorFiltersScroll.addView(layout);
-
-    }
-
-    private void LoadLUTs(ArrayList<Field> lut_fields) {
-        //load lut resources
-        for(Field field : lut_fields) {
-            //TODO: fix it (use all allocation in mm
-            Mat tMat;
-            Mat lMat = null;
-            int resId = 0;
-            try {
-                resId = field.getInt(field);
-            }
-            catch (Exception e) {
-                Log.e("Resources", "resId not exist: " + e.getMessage());
-            }
-            try {
-                tMat = Utils.loadResource(this, resId, Highgui.CV_LOAD_IMAGE_COLOR);
-                lMat = new Mat(tMat.size(), CvType.CV_8UC4);
-                Imgproc.cvtColor(tMat,lMat,Imgproc.COLOR_BGR2RGBA);
-                tMat.release();
-            }
-            catch (IOException e) {
-                Log.e("Resources", "load resId = " + Integer.toString(resId)+ ": " + e.getMessage());
-            }
-            lutMats.add(lMat);
+            mInnerScrollLayout.addView(imageButton);
         }
     }
+
 
     View.OnClickListener getOnClickImageButton(final ImageButton button)  {
         return new View.OnClickListener() {
@@ -277,10 +292,11 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                     }
                     if(mFilterButtons.get(i) == button) {
                         Long tsLong = System.currentTimeMillis();
-                        Lut(mm.matSource,mm.matTmp, lutMats.get(i),mm.resultBtm);
+                        Lut(mm.matSource,mm.matTmp, mm.lutMats.get(i),mm.resultBtm);
                         Log.i("TIMESTAMP", "time of lut for image is " + (System.currentTimeMillis() - tsLong) + " msec.");
                         adjustOpacity(mm.resultBtm, mm.alphaBtm, mSeekBar.getProgress());
-                        overlay(mm.alphaBtm, mm.sourceBtm,mm.tmpBtm);
+                        blend(mm.alphaBtm, mm.sourceBtm, mm.tmpBtm);
+                        currentLutIndex = i;
                         mImageView.setImageBitmap(mm.tmpBtm);
                     }
                 }
@@ -291,17 +307,15 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         Core.LUT(src, lut, tmp);
         Utils.matToBitmap(tmp, resBtm);
     }
-    private void overlay(Bitmap bmp1, Bitmap bmp2, Bitmap res)
+    private void blend(Bitmap bmp1, Bitmap bmp2, Bitmap res)
     {
         try
         {
             Canvas canvas = new Canvas(res);
-            Paint clearPaint = new Paint();
-            clearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-            canvas.drawRect(0, 0, res.getWidth(),res.getHeight(), clearPaint);
             Paint paint = new Paint();
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
             canvas.drawBitmap(bmp1,0,0,paint);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
+            paint.setXfermode(new PorterDuffXfermode(currBlendMode));
             canvas.drawBitmap(bmp2, 0, 0, paint);
         } catch (Exception e)
         {
@@ -331,15 +345,12 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
 
     public static Bitmap decodeSampledBitmapFromFile(String picturePath,
             int reqWidth, int reqHeight) {
-
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(picturePath, options);
-
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(picturePath, options);
@@ -349,7 +360,6 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-
         if (height > reqHeight || width > reqWidth) {
             // Calculate the largest inSampleSize value that is a power of 2 and keeps both
             // height and width larger than the requested height and width.
@@ -358,7 +368,6 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
                 inSampleSize *= 2;
             }
         }
-
         return inSampleSize;
     }
 }

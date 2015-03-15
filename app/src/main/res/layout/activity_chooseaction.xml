@@ -35,23 +35,52 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="bottom|center_horizontal"
-            android:visibility="gone"
+
             android:background="@color/standard_background"
             android:id="@+id/layout_strength" >
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/strength"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/white"/>
-            <SeekBar
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blend"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/white"/>
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blend_spinner">
+
+                </Spinner>
+             </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/seekBar"
-                android:layout_gravity="center_horizontal|top"
-                android:max="255"
-                android:progress="110"/>
+                android:orientation="vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strength"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/white"/>
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/seekBar"
+                    android:layout_gravity="center_horizontal|top"
+                    android:max="255"
+                    android:progress="110"
+                    android:layout_marginRight="48dp"/>
+            </LinearLayout>
+
         </LinearLayout>
+
     </FrameLayout>
     <LinearLayout
         android:layout_width="fill_parent"
@@ -69,7 +98,12 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp">
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inner_scroll_layout"
+                android:orientation="horizontal">
+            </LinearLayout>
         </HorizontalScrollView>
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"

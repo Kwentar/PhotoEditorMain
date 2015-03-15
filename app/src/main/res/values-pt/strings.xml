@@ -7,5 +7,13 @@
     <string name="gallery_desc">Get image from gallery</string>
     <string name="strength">Força:</string>
     <string name="send_to">Compartilhar</string>
+    <string name="blend">Modo de \nblend:</string>
+    <string-array name="blend_modes">
+        <item>Overlay</item>
+        <item>Iluminar</item>
+        <item>Normal</item>
+        <item>Tela</item>
+        <item>Escurecer</item>
+    </string-array>
     <string name="banner_id">ca-app-pub-2894837791244278/3605899343</string>
 </resources>
