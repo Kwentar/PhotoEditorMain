@@ -2,11 +2,13 @@ package com.ed9m.photoeditor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +26,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -234,10 +237,26 @@ public class ChooseActionActivity extends Activity implements SeekBar.OnSeekBarC
         } catch (IOException e) {
             e.printStackTrace();
         }
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(fShare.getAbsolutePath()));
+        //share.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), "file:///" + path to myfile.png", "Sample title", "Sample description")));
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        try {
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(),fShare.getAbsolutePath(),"Comely color", "")));
+        }
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
     }
+    public static void addImageToGallery(final String filePath, final Context context) {
 
+        ContentValues values = new ContentValues();
+
+        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.MediaColumns.DATA, filePath);
+
+        context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+    }
     public void CreatePreviewColorFilters(Bitmap btm) {
 
         Field[] all_fields = R.drawable.class.getFields();
