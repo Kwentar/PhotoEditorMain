@@ -40,7 +40,7 @@ public class FullscreenActivity extends Activity {
 		setContentView(R.layout.activity_fullscreen);
         // Поиск AdView как ресурса и отправка запроса.
         AdView adView = (AdView)this.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("6C524DC975C733EB2D79C60C05DF2D01").build();
         adView.loadAd(adRequest);
 		main_layout = (LinearLayout)findViewById(R.id.main_layout);
 		main_layout.setOnTouchListener(new View.OnTouchListener() {
@@ -99,7 +99,7 @@ public class FullscreenActivity extends Activity {
 	        try {
 	            photoFile = createImageFile();
 	        } catch (IOException ex) {
-	
+	            ex.printStackTrace();
 	        }
 	        if (photoFile != null) {
 	            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photoFile));
