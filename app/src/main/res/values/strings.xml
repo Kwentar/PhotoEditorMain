@@ -8,6 +8,7 @@
     <string name="strength">Strength: </string>
     <string name="send_to">Share image</string>
     <string name="blend">Blend mode:</string>
+
     <string-array name="blend_modes">
         <item>Overlay</item>
         <item>Lighten</item>
@@ -15,5 +16,10 @@
         <item>Screen</item>
         <item>Darken</item>
     </string-array>
+
     <string name="banner_id">ca-app-pub-2894837791244278/3605899343</string>
+    <string name="title_activity_curves">CurvesActivity</string>
+    <string name="apply_text">Apply</string>
+    <string name="cancel_text">Cancel</string>
+
 </resources>

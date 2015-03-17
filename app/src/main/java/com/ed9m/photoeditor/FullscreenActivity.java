@@ -112,6 +112,7 @@ public class FullscreenActivity extends Activity {
 	        }
 	    }
 	}
+    //TODO set from FileSystemManager
 	@SuppressLint("SimpleDateFormat")
 	private File createImageFile() throws IOException {
         // Create an image file name
