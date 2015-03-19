@@ -105,16 +105,19 @@ public class MainDrawView extends ImageView {
         public double a, b, c, d, x;
     }
 
-
-    boolean drawRect = false;
+    public boolean bDrawCircles = true;
+    boolean bInit = false;
     public Rect roi = new Rect(0,0,0,0);
     private PointF beginPoint = new PointF(0,0);
     private PointF endPoint = new PointF(0,0);
     private PointF[] curvesPoints = new PointF[5];
+    private PointF[] tmpLum;
+    private int[] currLum;
     int h,w;
     float cRadius = 0.f;
     PointF currentPoint = null;
     private boolean bWasInit = false;
+    private Bitmap src;
     public MainDrawView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -128,9 +131,12 @@ public class MainDrawView extends ImageView {
     public void onDraw(Canvas canvas) {
         drawGrid(canvas);
         drawCurve(canvas);
-        drawCircles(canvas);
+        if(bDrawCircles) {
+            drawCircles(canvas);
+        }
     }
     private void Init() {
+        currLum = new int[256];
         bWasInit = true;
         h = this.getHeight();
         w = this.getWidth();
@@ -174,17 +180,49 @@ public class MainDrawView extends ImageView {
         paint.setColor(Color.GREEN);
         Path path = new Path();
         int[] dp = interpolate(0,w+(h-w)/2, (int)endPoint.x,(int)endPoint.y,w,(h-w)/2, 0.5);
-        path.moveTo(curvesPoints[0].x, curvesPoints[0].y);
+        if(curvesPoints[0].x > 0) {
+            path.moveTo(0, curvesPoints[0].y);
+        }
+        else {
+            path.moveTo(curvesPoints[0].x, curvesPoints[0].y);
+        }
         //path.cubicTo(curvesPoints[1].x, curvesPoints[1].y,curvesPoints[2].x, curvesPoints[2].y,curvesPoints[3].x, curvesPoints[3].y);
         //path.cubicTo(curvesPoints[2].x, curvesPoints[2].y,curvesPoints[3].x, curvesPoints[3].y,curvesPoints[4].x, curvesPoints[4].y);
         Splayn splayn = new Splayn();
 
         splayn.BuildSpline(curvesPoints, 5);
+        tmpLum = new PointF[w];
+        for(int i = 0; i < w; i++) {
+            tmpLum[i] = new PointF();
+        }
+        for(int i = 0; i < curvesPoints[0].x; i++) {
+            tmpLum[i].y = (int)curvesPoints[0].y;
+            tmpLum[i].x = i;
+        }
         for(int i = (int)curvesPoints[0].x; i < curvesPoints[4].x; i++) {
             int y = (int)splayn.f(i);
+            if(y<(h-w)/2) {
+                y = (h-w)/2;
+            }
+            else if (y > w+(h-w)/2) {
+                y = w+(h-w)/2;
+            }
+            tmpLum[i].y = y;
+            tmpLum[i].x = i;
             path.lineTo(i,y);
         }
-
+        for(int i = (int)curvesPoints[4].x; i < w; i++) {
+            tmpLum[i].y = (int)curvesPoints[4].y;
+            tmpLum[i].x = i;
+        }
+        float coef = (float)w/256;
+        for(int i = 0; i < w; i++) {
+            tmpLum[i].x = tmpLum[i].x/coef;
+            tmpLum[i].y = 256-(tmpLum[i].y-(h-w)/2)/coef;
+        }
+        if(curvesPoints[4].x < w) {
+            path.lineTo(w, curvesPoints[4].y);
+        }
         //path.quadTo(dp[0], dp[1],w, (h-w)/2);
 
         canvas.drawPath(path,paint);
@@ -193,6 +231,11 @@ public class MainDrawView extends ImageView {
     @SuppressWarnings("deprecation")
     public void setImageBitmap(Bitmap btm) {
         super.setImageBitmap(btm);
+        if(!bInit) {
+            src = btm;
+            bInit = true;
+        }
+
         BitmapDrawable btm_draw = new BitmapDrawable(getResources(), btm);
         btm_draw.setGravity(Gravity.CENTER);
         if (android.os.Build.VERSION.SDK_INT >= 16) {
@@ -214,15 +257,47 @@ public class MainDrawView extends ImageView {
                 if(currentPoint != null) {
                     currentPoint.x = e.getX();
                     currentPoint.y = e.getY();
+                    if(currentPoint.y<(h-w)/2) {
+                        currentPoint.y = (h-w)/2;
+                    }
+                    else if (currentPoint.y > w+(h-w)/2) {
+                        currentPoint.y = w+(h-w)/2;
+                    }
                 }
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
                 currentPoint = null;
+                Long tsLong = System.currentTimeMillis();
+                setLuminance();
+                Long tsLongEnd = System.currentTimeMillis();
+                Log.i("TIMESTAMP", "time of luminance is " + (tsLongEnd - tsLong) + " msec." );
                 invalidate();
                 break;
         }
         return true;
+    }
+    private void setLuminance() {
+        Bitmap inner = src.copy(src.getConfig(),true);
+        int width = src.getWidth();
+        int height = src.getHeight();
+        int [] p = new int[width*height];
+        inner.getPixels(p,0,width,0,0,width,height);
+        for(int i=0;i<width*height;i++) {
+            int r = (p[i] & 0xff0000) >> 16;
+            int g = (p[i] & 0x00ff00) >> 8;
+            int b = (p[i] & 0x0000ff);
+            r=(int)tmpLum[r*w/256].y > 255? 255: (int)tmpLum[r*w/256].y;
+            g=(int)tmpLum[g*w/256].y > 255? 255: (int)tmpLum[g*w/256].y;
+            b=(int)tmpLum[b*w/256].y > 255? 255: (int)tmpLum[b*w/256].y;
+            int res = 255<<24;
+            res+=(r<<16);
+            res+=(g<<8);
+            res+=(b);
+            p[i]=res;
+        }
+        inner.setPixels(p,0,width,0,0,width,height);
+        setImageBitmap(inner);
     }
     private float getDistance(PointF p1, PointF p2) {
         return (float)Math.sqrt((p1.x - p2.x)*(p1.x-p2.x) + (p1.y - p2.y)*(p1.y-p2.y));

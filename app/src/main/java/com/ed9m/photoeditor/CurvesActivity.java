@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 
 public class CurvesActivity extends Activity {
+    public void onApplyClick(View view) {
+        mainDrawView.bDrawCircles = !mainDrawView.bDrawCircles;
+        mainDrawView.invalidate();
+    }
 
     private FileSystemManager fm;
     private MainDrawView mainDrawView;
